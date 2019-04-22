@@ -20,9 +20,9 @@ import java.util.Random;
   */
 public class Game extends Canvas implements Runnable {
 
-    public static final int WIDTH = 448; // width for the window screen
-    public static final int HEIGHT = 424; // height for the window screen
-    public static final int TILESIZE = 64; // tileseze size for the tile in this case 64 * 64
+    public static final int WIDTH = 692; // width for the window screen 96 * 7 = 672 + 20
+    public static final int HEIGHT = 624; // height for the window screen 96 * 6 = 576 + 48 
+    public static final int TILESIZE = 96; // tileseze size for the tile in this case 64 * 64
     private Thread thread; // thread of the program
     public boolean isRunning = false; // check if the program is running
 
@@ -114,7 +114,7 @@ public class Game extends Canvas implements Runnable {
      * @param g
      */
     public void drawGrids(Graphics g){
-        g.setColor(Color.black);
+        g.setColor(Color.BLUE);
         for(int x = 0 ; x < WIDTH; x+=TILESIZE){
             g.drawLine(x, 0, x, HEIGHT);
         }
@@ -135,7 +135,7 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(new Color(66, 134, 244)); // color for the background
+        g.setColor(new Color(255, 255, 255)); // color for the background
         g.fillRect(0, 0, WIDTH, HEIGHT); // fill the background
         drawGrids(g); // draw the grid
         /*
