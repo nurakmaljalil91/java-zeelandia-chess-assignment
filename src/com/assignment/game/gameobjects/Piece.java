@@ -13,8 +13,9 @@ public abstract class Piece {
 
     private Vector2f position; // the position of the piece in the board
     private String filename; // path for the image
-    private bool isAlive;
-    private int team;
+    private bool isAlive; // determine if the piece is alive
+    private int team; // determine the team for the piece
+    private bool selected;
 
     /**
      * Constructor for piece class
@@ -27,8 +28,20 @@ public abstract class Piece {
         this.position = position;
         this.filename = filename;
         this.isAlive = true;
+        this.selected = false;
     }
 
+    
+    /**
+     * update the piece 
+     */
+    abstract void update();
+
+    /**
+     * draw the piece on the board
+     */
+    abstract void draw();
+    
     /**
      * function to move the piece in the map
      */
