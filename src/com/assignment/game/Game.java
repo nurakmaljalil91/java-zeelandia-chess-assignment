@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
+import com.assignment.game.states.GameStateManager;
+import com.assignment.game.utils.MouseHandler;
+
 /**
  * The game class for the game
  * 
@@ -14,19 +17,21 @@ import java.util.Random;
  * @since 2019-04-19
  */
 
- /**
-  * class game is inherited Canvas class properties 
-  * implements the runnable where the game can start,run and stop
-  */
+/**
+ * class game is inherited Canvas class properties implements the runnable where
+ * the game can start,run and stop
+ */
 public class Game extends Canvas implements Runnable {
 
     public static final int WIDTH = 692; // width for the window screen 96 * 7 = 672 + 20
-    public static final int HEIGHT = 624; // height for the window screen 96 * 6 = 576 + 48 
+    public static final int HEIGHT = 624; // height for the window screen 96 * 6 = 576 + 48
     public static final int TILESIZE = 96; // tileseze size for the tile in this case 64 * 64
     private Thread thread; // thread of the program
     public boolean isRunning = false; // check if the program is running
 
-    // private MouseHandler mouseHandler;
+    private MouseHandler mouseHandler;
+    private GameStateManager gameStateManager;
+
     /**
      * Constructor for the game
      */
@@ -61,11 +66,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     /**
-     * run the game 
-     * calculate the fps of the game
-     * main loop of the game
+     * run the game calculate the fps of the game main loop of the game
      */
     public void run() {
+        initialize(); // initilize the game *important*
         this.requestFocus(); // allow the game to be focus when start
         long lastTime = System.nanoTime(); // check the last time for the game
         double framePerSeconds = 60.0; // fps of the game
@@ -77,9 +81,10 @@ public class Game extends Canvas implements Runnable {
         while (isRunning) {
             long now = System.nanoTime(); // time for now
             delta += (now - lastTime) / nanoSeconds; // delta time is time now divide by ns
-            lastTime = now; // init back the last time record 
+            lastTime = now; // init back the last time record
             while (delta >= 1) {
                 update(); // update all game
+                input(mouseHandler);
                 delta--;
             }
             if (isRunning) {
@@ -99,26 +104,34 @@ public class Game extends Canvas implements Runnable {
      * Initialize the game
      */
     public void initialize() {
-        // mouseHandler = new MouseHandler();
+
+        gameStateManager = new GameStateManager(); // create to manage states in the gae=me
+        mouseHandler = new MouseHandler(this); // handle the mouse
+
     }
 
     /**
      * Update the game object inside the game
      */
     public void update() {
+        gameStateManager.update(); // update the state
+    }
 
+    public void input(MouseHandler mouseHandler) {
+        gameStateManager.input(mouseHandler); // update the input
     }
 
     /**
      * Draw the grid for the pieces
+     * 
      * @param g
      */
-    public void drawGrids(Graphics g){
+    public void drawGrids(Graphics g) {
         g.setColor(Color.BLUE);
-        for(int x = 0 ; x < WIDTH; x+=TILESIZE){
+        for (int x = 0; x < WIDTH; x += TILESIZE) {
             g.drawLine(x, 0, x, HEIGHT);
         }
-        for(int y = 0; y < HEIGHT; y+= TILESIZE){
+        for (int y = 0; y < HEIGHT; y += TILESIZE) {
             g.drawLine(0, y, WIDTH, y);
         }
     }
@@ -138,19 +151,14 @@ public class Game extends Canvas implements Runnable {
         g.setColor(new Color(255, 255, 255)); // color for the background
         g.fillRect(0, 0, WIDTH, HEIGHT); // fill the background
         drawGrids(g); // draw the grid
-        /*
-         * drawGrid(g); if(player != null){ player.draw(g); } else{
-         * System.err.println("Player is null???"); }
-         * 
-         * debug.draw(g);
-         */
-        // gsm.render(g);
+        gameStateManager.draw(g); // draw the state
         g.dispose(); // clear the window screen
         bs.show(); // show back the buffersrategy
     }
 
     /**
      * main function for running the game
+     * 
      * @param args
      */
     public static void main(String[] args) {

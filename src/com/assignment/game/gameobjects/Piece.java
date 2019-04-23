@@ -1,5 +1,9 @@
 package com.assignment.game.gameobjects;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 import com.assignment.game.utils.*;
 
 /**
@@ -11,11 +15,13 @@ import com.assignment.game.utils.*;
  */
 public abstract class Piece {
 
-    private Vector2f position; // the position of the piece in the board
-    private String filename; // path for the image
-    private bool isAlive; // determine if the piece is alive
+    protected Vector2f position; // the position of the piece in the board
+    protected String filename; // path for the image
+    private boolean isAlive; // determine if the piece is alive
     private int team; // determine the team for the piece
-    private bool selected;
+    private boolean selected;
+    protected BufferedImage image;
+    protected Image realImage;
 
     /**
      * Constructor for piece class
@@ -40,7 +46,7 @@ public abstract class Piece {
     /**
      * draw the piece on the board
      */
-    abstract void draw();
+    abstract void draw(Graphics g);
     
     /**
      * function to move the piece in the map
