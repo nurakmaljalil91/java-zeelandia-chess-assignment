@@ -1,6 +1,7 @@
 package com.assignment.game.states;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import com.assignment.game.utils.MouseHandler;
 
@@ -17,7 +18,7 @@ public class MenuState extends GameState {
     }
 
     @Override
-    public void input(MouseHandler mouseHandler) {
+    public void input(MouseHandler mouseHandler, MouseEvent e) {
 
     }
 

@@ -1,6 +1,7 @@
 package com.assignment.game.states;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import com.assignment.game.gameobjects.Plus;
 import com.assignment.game.utils.MouseHandler;
@@ -44,8 +45,12 @@ public class PlayState extends GameState {
      * update all the input from the player in the state
      */
     @Override
-    public void input(MouseHandler mouseHandler) {
+    public void input(MouseHandler mouseHandler, MouseEvent e) {
         //System.out.println(mouseHandler.getX());
+        bluePlusPiece1.input(mouseHandler, e);
+        // bluePlusPiece2.input(mouseHandler);
+        // redPlusPiece1.input(mouseHandler);
+        // redPlusPiece2.input(mouseHandler);
     }
 
     /**

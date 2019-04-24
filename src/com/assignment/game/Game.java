@@ -3,6 +3,7 @@ package com.assignment.game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
 
@@ -31,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 
     private MouseHandler mouseHandler;
     private GameStateManager gameStateManager;
+    private MouseEvent e;
 
     /**
      * Constructor for the game
@@ -84,7 +86,7 @@ public class Game extends Canvas implements Runnable {
             lastTime = now; // init back the last time record
             while (delta >= 1) {
                 update(); // update all game
-                input(mouseHandler);
+                input(mouseHandler, e);
                 delta--;
             }
             if (isRunning) {
@@ -107,7 +109,7 @@ public class Game extends Canvas implements Runnable {
 
         gameStateManager = new GameStateManager(); // create to manage states in the gae=me
         mouseHandler = new MouseHandler(this); // handle the mouse
-
+        
     }
 
     /**
@@ -117,8 +119,8 @@ public class Game extends Canvas implements Runnable {
         gameStateManager.update(); // update the state
     }
 
-    public void input(MouseHandler mouseHandler) {
-        gameStateManager.input(mouseHandler); // update the input
+    public void input(MouseHandler mouseHandler, MouseEvent e) {
+        gameStateManager.input(mouseHandler, e); // update the input
     }
 
     /**

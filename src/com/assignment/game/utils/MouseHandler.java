@@ -11,7 +11,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     private static int mouseX = -1;
     private static int mouseY = -1;
     private static int mouseB = -1;
-
+    private static boolean clicked = false;
     public MouseHandler(Game game) {
         game.addMouseListener(this);
         game.addMouseMotionListener(this);
@@ -28,15 +28,22 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public int getButton() {
         return mouseB;
     }
+    
+    public boolean clickedOnce(MouseEvent e){
+        mouseClicked(e);
+        return clicked;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if(e.getClickCount() == 1){
+            mouseB = e.getButton();
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mouseB = e.getButton();
+        //mouseB = e.getButton();
     }
 
     @Override

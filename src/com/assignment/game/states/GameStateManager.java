@@ -1,6 +1,7 @@
 package com.assignment.game.states;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import com.assignment.game.utils.MouseHandler;
 
@@ -105,11 +106,11 @@ public class GameStateManager {
      * update all the inputs in the manager
      * @param mouse
      */
-    public void input(MouseHandler mouse) {
+    public void input(MouseHandler mouse, MouseEvent e) {
 
         for (int i = 0; i < states.length; i++) {
             if (states[i] != null) {
-                states[i].input(mouse);
+                states[i].input(mouse, e);
             }
         }
     }

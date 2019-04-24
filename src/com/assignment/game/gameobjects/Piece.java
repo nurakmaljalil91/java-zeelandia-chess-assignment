@@ -2,6 +2,9 @@ package com.assignment.game.gameobjects;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import com.assignment.game.utils.*;
@@ -17,11 +20,20 @@ public abstract class Piece {
 
     protected Vector2f position; // the position of the piece in the board
     protected String filename; // path for the image
-    private boolean isAlive; // determine if the piece is alive
-    private int team; // determine the team for the piece
-    private boolean selected;
+    protected boolean isAlive; // determine if the piece is alive
+    protected int team; // determine the team for the piece
+    protected boolean selected;
     protected BufferedImage image;
     protected Image realImage;
+    protected String name;
+    protected Rectangle rectangle;
+    protected boolean clicked = false;
+
+    protected enum STATE {
+        idle, selected
+    };
+
+    protected STATE state;
 
     /**
      * Constructor for piece class
@@ -35,11 +47,11 @@ public abstract class Piece {
         this.filename = filename;
         this.isAlive = true;
         this.selected = false;
+        this.state = STATE.idle;
     }
 
-    
     /**
-     * update the piece 
+     * update the piece
      */
     abstract void update();
 
@@ -47,7 +59,7 @@ public abstract class Piece {
      * draw the piece on the board
      */
     abstract void draw(Graphics g);
-    
+
     /**
      * function to move the piece in the map
      */

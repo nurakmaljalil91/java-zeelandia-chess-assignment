@@ -1,8 +1,11 @@
 package com.assignment.game.states;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 import com.assignment.game.utils.MouseHandler;
+
+
 
 /**
  * class GameState act as parent for all the states in the game. This allow the
@@ -32,7 +35,7 @@ public abstract class GameState {
      * update all the inputs of the gamestate
      * @param mouseHandler
      */
-    public abstract void input(MouseHandler mouseHandler);
+    public abstract void input(MouseHandler mouseHandler, MouseEvent e);
 
     /**
      * update all the render or the draw the image of the gamestate
