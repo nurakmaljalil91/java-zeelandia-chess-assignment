@@ -61,11 +61,23 @@ public class Plus extends Piece {
 
             }
         }
-      
-        
+
         clicked = false;
 
-        
+        if (state == STATE.selected && selected == true) {
+            if (rectangle.contains(mouseHandler.getX(), mouseHandler.getY())) {
+                // System.out.println("The mouse is at " + name+" "+team);
+                if (mouseHandler.getButton() == 1 && !clicked) {
+                    state = STATE.idle;
+                    clicked = true;
+                    selected = false;
+                }
+
+            }
+        }
+
+        clicked = false;
+        System.out.println(state);
     }
 
     /**
@@ -86,7 +98,7 @@ public class Plus extends Piece {
     }
 
     public void select() {
-        
+
     }
 
     /**

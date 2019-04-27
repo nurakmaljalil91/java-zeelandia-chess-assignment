@@ -2,7 +2,9 @@ package com.assignment.game.states;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
+import com.assignment.game.gameobjects.Piece;
 import com.assignment.game.gameobjects.Plus;
 import com.assignment.game.utils.MouseHandler;
 import com.assignment.game.utils.Vector2f;
@@ -27,10 +29,16 @@ public class PlayState extends GameState {
      */
     public PlayState(GameStateManager gameStateManager) {
         super(gameStateManager);
+
+        // Creating a blue team
+        
+        
         bluePlusPiece1 = new Plus(1, new Vector2f(0,0), "/bluePlus.png");
         bluePlusPiece2 = new Plus(1, new Vector2f(6,0), "/bluePlus.png");
         redPlusPiece1 = new Plus(2, new Vector2f(0,5), "/redPlus.png");
         redPlusPiece2 = new Plus(2, new Vector2f(6,5), "/redPlus.png");
+
+        
     }   
 
     /**

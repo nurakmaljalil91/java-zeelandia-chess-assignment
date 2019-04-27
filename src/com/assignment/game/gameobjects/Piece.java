@@ -3,6 +3,7 @@ package com.assignment.game.gameobjects;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
@@ -54,6 +55,13 @@ public abstract class Piece {
      * update the piece
      */
     abstract void update();
+
+    /**
+     * handle the input for the piece
+     * @param mouseHandler
+     * @param e
+     */
+    abstract void input(MouseHandler mouseHandler, MouseEvent e);
 
     /**
      * draw the piece on the board
