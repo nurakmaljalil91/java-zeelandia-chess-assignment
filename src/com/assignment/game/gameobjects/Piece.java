@@ -29,6 +29,7 @@ public abstract class Piece {
     protected String name;
     protected Rectangle rectangle;
     protected boolean clicked = false;
+    protected final int SIZE = 96;
 
     protected enum STATE {
         idle, selected
@@ -71,7 +72,7 @@ public abstract class Piece {
     /**
      * function to move the piece in the map
      */
-    abstract void move();
+    abstract void move(MouseHandler mouseHandler, MouseEvent e);
 
     /**
      * function to eat the piece in the map

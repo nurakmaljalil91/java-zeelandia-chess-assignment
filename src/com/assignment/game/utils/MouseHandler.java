@@ -28,6 +28,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     public int getButton() {
         return mouseB;
     }
+
+    public void resetButton(){
+        mouseB = -1;
+    }
     
     public boolean clickedOnce(MouseEvent e){
         mouseClicked(e);
@@ -43,7 +47,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //mouseB = e.getButton();
+        mouseB = e.getButton();
     }
 
     @Override

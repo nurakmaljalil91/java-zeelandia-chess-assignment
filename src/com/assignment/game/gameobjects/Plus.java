@@ -37,47 +37,39 @@ public class Plus extends Piece {
         BufferedImageLoader imageloader = new BufferedImageLoader(); // this is class to load image
         image = imageloader.loadImage(filename); // load the image from the filename
         this.name = "Plus";
-        this.rectangle = new Rectangle((int) position.x * 96, (int) position.y * 96, 96, 96);
+        // create the rectangle from the position and size
+        this.rectangle = new Rectangle((int) position.x * SIZE, (int) position.y * SIZE, SIZE, SIZE);
     }
 
     /**
      * update all the process of the piece
      */
     public void update() {
+        // Update rectangle loaction
+        updateRectangle();
         // if select
+       
 
     }
 
+    /**
+     * update the input for the piece
+     * @param mouseHandler
+     * @param e
+     */
     public void input(MouseHandler mouseHandler, MouseEvent e) {
 
         if (state == STATE.idle && selected == false) {
-            if (rectangle.contains(mouseHandler.getX(), mouseHandler.getY())) {
-                // System.out.println("The mouse is at " + name+" "+team);
-                if (mouseHandler.getButton() == 1 && !clicked) {
-                    state = STATE.selected;
-                    clicked = true;
-                    selected = true;
-                }
-
-            }
+            select(mouseHandler, e);
+        }
+        clicked = false;
+        if (state == STATE.selected) {
+            //deselect(mouseHandler, e);
+            move(mouseHandler, e);
         }
 
         clicked = false;
 
-        if (state == STATE.selected && selected == true) {
-            if (rectangle.contains(mouseHandler.getX(), mouseHandler.getY())) {
-                // System.out.println("The mouse is at " + name+" "+team);
-                if (mouseHandler.getButton() == 1 && !clicked) {
-                    state = STATE.idle;
-                    clicked = true;
-                    selected = false;
-                }
-
-            }
-        }
-
-        clicked = false;
-        System.out.println(state);
     }
 
     /**
@@ -86,26 +78,46 @@ public class Plus extends Piece {
      * @param g
      */
     public void draw(Graphics g) {
-        // draw the image
-        g.drawImage(image, (int) position.x * 96, (int) position.y * 96, 96, 96, null);
+        // draw the image based on the rectangle
+        g.drawImage(image, rectangle.x, rectangle.y, rectangle.width, rectangle.height, null);
         if (state == STATE.selected) {
             g.setColor(Color.RED);
-            g.fillRect((int) position.x + 1 * 96, (int) position.y * 96, 96, 96);
-            g.fillRect((int) position.x + 2 * 96, (int) position.y * 96, 96, 96);
-            g.fillRect((int) position.x * 96, (int) position.y + 1 * 96, 96, 96);
-            g.fillRect((int) position.x * 96, (int) position.y + 2 * 96, 96, 96);
+            g.drawRect((int) position.x + 1 * 96, (int) position.y * 96, 96, 96);
+            g.drawRect((int) position.x + 2 * 96, (int) position.y * 96, 96, 96);
+            g.drawRect((int) position.x * 96, (int) position.y + 1 * 96, 96, 96);
+            g.drawRect((int) position.x * 96, (int) position.y + 2 * 96, 96, 96);
         }
     }
 
-    public void select() {
-
+    public void select(MouseHandler mouseHandler, MouseEvent e) {
+        if (rectangle.contains(mouseHandler.getX(), mouseHandler.getY())) {
+            if (mouseHandler.getButton() == 1 && !clicked) {
+                state = STATE.selected;
+                clicked = true;
+                selected = true;
+            }
+        }
+        mouseHandler.resetButton();
     }
 
+    public void deselect(MouseHandler mouseHandler, MouseEvent e){
+        if(rectangle.contains(mouseHandler.getX(), mouseHandler.getY())){
+            if(mouseHandler.getButton() == 1 && !clicked){
+                state = STATE.idle;
+                clicked = true;
+                selected = false;
+            }
+        }
+        mouseHandler.resetButton();
+    }
     /**
      * move the piece
      */
-    public void move() {
-
+    public void move(MouseHandler mouseHandler, MouseEvent e) {
+        if(mouseHandler.getButton() == 1 && !clicked){
+            System.out.println("joking!");
+        }
+        mouseHandler.resetButton();
     }
 
     /**
@@ -113,6 +125,13 @@ public class Plus extends Piece {
      */
     public void eat() {
 
+    }
+
+    /**
+     * update the rectangle location 
+     */
+    public void updateRectangle(){
+        rectangle.setBounds((int)position.x, (int)position.y, SIZE, SIZE);
     }
 
 }
