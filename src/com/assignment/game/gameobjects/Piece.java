@@ -30,6 +30,8 @@ public abstract class Piece {
     protected Rectangle rectangle;
     protected boolean clicked = false;
     protected final int SIZE = 96;
+    protected Player playerPieceManager;
+    protected ID id;
 
     protected enum STATE {
         idle, selected
@@ -43,13 +45,15 @@ public abstract class Piece {
      * @param position
      * @param name
      */
-    public Piece(int team, Vector2f position, String filename) {
+    public Piece(int team, Vector2f position, String filename, Player playerPieceManager, ID id) {
         this.team = team;
         this.position = position;
         this.filename = filename;
         this.isAlive = true;
         this.selected = false;
         this.state = STATE.idle;
+        this.playerPieceManager = playerPieceManager;
+        this.id = id;
     }
 
     /**
@@ -59,6 +63,7 @@ public abstract class Piece {
 
     /**
      * handle the input for the piece
+     * 
      * @param mouseHandler
      * @param e
      */
@@ -78,4 +83,8 @@ public abstract class Piece {
      * function to eat the piece in the map
      */
     abstract void eat();
+
+    public abstract ID getID();
+
+    public abstract void onClick(MouseHandler mouseHandler, MouseEvent e);
 }

@@ -17,7 +17,7 @@ public class Player {
     private int score; // number of score
     private int team; // team number
 
-    private LinkedList<Piece> pieces = new LinkedList<Piece>(); // collection of pieces
+    public LinkedList<Piece> pieces = new LinkedList<Piece>(); // collection of pieces
 
     /**
      * Constructor for the player class

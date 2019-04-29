@@ -31,6 +31,7 @@ public class Game extends Canvas implements Runnable {
     public boolean isRunning = false; // check if the program is running
 
     private MouseHandler mouseHandler;
+    private MouseEvent mouseEvent;
     private GameStateManager gameStateManager;
     private MouseEvent e;
 
@@ -109,7 +110,7 @@ public class Game extends Canvas implements Runnable {
 
         gameStateManager = new GameStateManager(); // create to manage states in the gae=me
         mouseHandler = new MouseHandler(this); // handle the mouse
-        
+
     }
 
     /**

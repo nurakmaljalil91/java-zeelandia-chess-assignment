@@ -5,6 +5,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import com.assignment.game.Game;
+import com.assignment.game.gameobjects.ID;
+import com.assignment.game.gameobjects.Piece;
+import com.assignment.game.gameobjects.Player;
 
 public class MouseHandler implements MouseListener, MouseMotionListener {
 
@@ -12,9 +15,23 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
     private static int mouseY = -1;
     private static int mouseB = -1;
     private static boolean clicked = false;
+    private boolean leftPressed, rightPressed;
+    private Player playerPieceManager;
+
     public MouseHandler(Game game) {
         game.addMouseListener(this);
         game.addMouseMotionListener(this);
+    }
+
+    public void setPlayerPieces(Player playerPieceManager){
+        this.playerPieceManager = playerPieceManager;
+    }
+    public boolean isLeftPressed() {
+        return leftPressed;
+    }
+
+    public boolean isRightPressed() {
+        return rightPressed;
     }
 
     public int getX() {
@@ -29,30 +46,48 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
         return mouseB;
     }
 
-    public void resetButton(){
+    public void resetButton() {
         mouseB = -1;
     }
-    
-    public boolean clickedOnce(MouseEvent e){
+
+    public boolean clickedOnce(MouseEvent e) {
         mouseClicked(e);
         return clicked;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getClickCount() == 1){
+        if (e.getClickCount() == 1) {
             mouseB = e.getButton();
+            clicked = true;
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mouseB = e.getButton();
+        if (e.getButton() == MouseEvent.BUTTON1)
+            leftPressed = true;
+        else if (e.getButton() == MouseEvent.BUTTON3)
+            rightPressed = true;
+        if(playerPieceManager != null){
+            for(int i = 0; i < playerPieceManager.pieces.size(); i++) {
+                Piece tempPiece = playerPieceManager.pieces.get(i);
+                if(tempPiece.getID() == ID.bluePlus1){
+                    tempPiece.onClick(this, e);
+                }
+                if(tempPiece.getID() == ID.bluePlus2){
+                    tempPiece.onClick(this, e);
+                }
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mouseB = -1;
+        if (e.getButton() == MouseEvent.BUTTON1)
+            leftPressed = false;
+        else if (e.getButton() == MouseEvent.BUTTON3)
+            rightPressed = false;
     }
 
     @Override
