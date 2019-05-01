@@ -24,7 +24,6 @@ public class PlayState extends GameState {
     private Player playerBlue;
     private Player playerRed;
 
-
     /**
      * constructor of PlayState class
      * 
@@ -37,13 +36,8 @@ public class PlayState extends GameState {
         playerBlue = new Player("Blue", 1);
         playerRed = new Player("Red", 2);
 
-        // bluePlusPiece1 = new Plus(1, new Vector2f(0,0), "/bluePlus.png");
-        // bluePlusPiece2 = new Plus(1, new Vector2f(6,0), "/bluePlus.png");
-        // redPlusPiece1 = new Plus(2, new Vector2f(0,5), "/redPlus.png");
-        // redPlusPiece2 = new Plus(2, new Vector2f(6,5), "/redPlus.png");
-
         playerBlue.addPiece(new Plus(1, new Vector2f(0, 0), "/bluePlus.png", playerBlue, ID.bluePlus1));
-        playerBlue.addPiece(new Plus(1, new Vector2f(4, 0), "/bluePlus.png", playerBlue,ID.bluePlus2));
+        playerBlue.addPiece(new Plus(1, new Vector2f(2, 0), "/bluePlus.png", playerBlue, ID.bluePlus2));
     }
 
     /**
@@ -65,10 +59,7 @@ public class PlayState extends GameState {
         mouseHandler.setPlayerPieces(playerBlue);
         playerBlue.input(mouseHandler, e);
         playerRed.input(mouseHandler, e);
-        // bluePlusPiece1.input(mouseHandler, e);
-        // bluePlusPiece2.input(mouseHandler);
-        // redPlusPiece1.input(mouseHandler);
-        // redPlusPiece2.input(mouseHandler);
+
     }
 
     /**
@@ -80,10 +71,6 @@ public class PlayState extends GameState {
     public void draw(Graphics g) {
         playerBlue.draw(g);
         playerRed.draw(g);
-        // System.out.println("this is play state draw");
-        // bluePlusPiece1.draw(g);
-        // bluePlusPiece2.draw(g);
-        // redPlusPiece1.draw(g);
-        // redPlusPiece2.draw(g);
+
     }
 }
