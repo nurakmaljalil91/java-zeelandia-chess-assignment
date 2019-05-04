@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import com.assignment.game.utils.BufferedImageLoader;
 import com.assignment.game.utils.MouseHandler;
 import com.assignment.game.utils.Vector2f;
+import com.assignment.game.utils.Vector2i;
 
 /**
  * class plus is a piece plus inherited the piece parent class, plus can move
@@ -43,13 +44,13 @@ public class Plus extends Piece {
      * @param position
      * @param filename
      */
-    public Plus(int team, Vector2f position, String filename, Player playerPieceManager, ID id) {
+    public Plus(int team, Vector2i position, String filename, Player playerPieceManager, ID id) {
         super(team, position, filename, playerPieceManager, id); // inherited the properties from piece parent
         BufferedImageLoader imageloader = new BufferedImageLoader(); // this is class to load image
         image = imageloader.loadImage(filename); // load the image from the filename
         this.name = "Plus";
         // create the rectangle from the position and size
-        this.rectangle = new Rectangle((int) position.x * SIZE, (int) position.y * SIZE, SIZE, SIZE);
+        this.rectangle = new Rectangle(position.x * SIZE, position.y * SIZE, SIZE, SIZE);
         this.listNextRectangles = new ArrayList<Rectangle>();
         isNextRectangleLeft1 = false;
         isNextRectangleLeft2 = false;
@@ -70,15 +71,16 @@ public class Plus extends Piece {
         // if select
         if (state == STATE.selected) {
             checkRightTile();
-            // checkLeftTile();
-            checkLeftDebug();
+            checkLeftTile();
+            //checkDownTile();
+            // checkLeftDebug();
         }
         if (state == STATE.idle && canSelect == false) {
             // select(mouseHandler, e);
             clear();
         }
 
-        for(int i = 0 ; i < playerPieceManager.pieces.size(); i++){
+        for (int i = 0; i < playerPieceManager.pieces.size(); i++) {
             System.out.println(playerPieceManager.pieces.get(i).rectangle.getBounds());
         }
 
@@ -116,7 +118,7 @@ public class Plus extends Piece {
      * update the rectangle location
      */
     public void updateRectangle() {
-        rectangle.setBounds((int) position.x * SIZE, (int) position.y * SIZE, SIZE, SIZE);
+        rectangle.setBounds(position.x * SIZE, position.y * SIZE, SIZE, SIZE);
     }
 
     /**
@@ -197,7 +199,7 @@ public class Plus extends Piece {
         for (int i = 1; i <= 2; i++) {
             // if true for each
 
-            if (checkNextTile((int) this.position.x + i, (int) this.position.y)) {
+            if (checkNextTile(this.position.x + i, this.position.y)) {
                 numberOfRectCreated += 1;
 
             }
@@ -218,7 +220,7 @@ public class Plus extends Piece {
             isNextRectangleRight1 = true;
             listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() + 2 * SIZE,
                     (int) rectangle.getY() * SIZE, SIZE, SIZE));
-            isNextRectangleRight1 = true;
+            isNextRectangleRight2 = true;
 
         } else if (numberOfRectCreated == 1 && !isNextRectangleRight1) {
             listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() + 1 * SIZE,
@@ -256,7 +258,7 @@ public class Plus extends Piece {
             isNextRectangleLeft1 = true;
             listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() - 2 * SIZE,
                     (int) rectangle.getY() * SIZE, SIZE, SIZE));
-            isNextRectangleLeft1 = true;
+            isNextRectangleLeft2 = true;
 
         } else if (numberOfRectCreated == 1 && !isNextRectangleLeft1) {
             listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() - 1 * SIZE,
@@ -271,7 +273,45 @@ public class Plus extends Piece {
         int numberOfRectCreated = 0;
         for (int i = 1; i <= 2; i++) {
             // if true for each
-            System.out.println(checkNextTile((int) rectangle.getX() + i, (int) this.rectangle.getY()));
+            System.out.println(checkNextTile((int) rectangle.getX() - i, (int) this.rectangle.getY()));
+        }
+
+    }
+
+    public void checkDownTile() {
+        // check left pieces
+        int numberOfRectCreated = 0;
+        for (int i = 1; i <= 2; i++) {
+            // if true for each
+
+            if (checkNextTile((int) rectangle.getX(), (int) this.rectangle.getY() + i)) {
+                numberOfRectCreated += 1;
+
+            }
+            // if already a piece in next tile break the loop no need to create rectangle at
+            // all
+            if (numberOfRectCreated == 0) {
+                break;
+            }
+            System.out.println("ey " + numberOfRectCreated);
+
+        }
+
+        if (numberOfRectCreated == 2 && !isNextRectangleDown1 && !isNextRectangleDown2) {
+
+            // somehow I cannot use position but only the rectangle position....weird!
+
+            listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() * SIZE,
+                    (int) rectangle.getY() + 1 * SIZE, SIZE, SIZE));
+            isNextRectangleDown1 = true;
+            listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() * SIZE,
+                    (int) rectangle.getY() + 2 * SIZE, SIZE, SIZE));
+            isNextRectangleDown2 = true;
+
+        } else if (numberOfRectCreated == 1 && !isNextRectangleDown1) {
+            listNextRectangles.add(nextRectangle = new Rectangle((int) rectangle.getX() * SIZE,
+                    (int) rectangle.getY() + 1 * SIZE, SIZE, SIZE));
+            isNextRectangleDown1 = true;
         }
 
     }

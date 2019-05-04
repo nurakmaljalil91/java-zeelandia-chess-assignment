@@ -20,7 +20,7 @@ import com.assignment.game.utils.*;
  */
 public abstract class Piece {
 
-    protected Vector2f position; // the position of the piece in the board
+    protected Vector2i position; // the position of the piece in the board
     protected String filename; // path for the image
     protected boolean isAlive; // determine if the piece is alive
     protected int team; // determine the team for the piece
@@ -50,7 +50,7 @@ public abstract class Piece {
      * @param filename
      * @param player
      */
-    public Piece(int team, Vector2f position, String filename, Player playerPieceManager, ID id) {
+    public Piece(int team, Vector2i position, String filename, Player playerPieceManager, ID id) {
         this.team = team;
         this.position = position;
         this.filename = filename;

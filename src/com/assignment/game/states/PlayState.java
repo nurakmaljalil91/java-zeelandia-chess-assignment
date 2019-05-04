@@ -10,6 +10,7 @@ import com.assignment.game.gameobjects.Player;
 import com.assignment.game.gameobjects.Plus;
 import com.assignment.game.utils.MouseHandler;
 import com.assignment.game.utils.Vector2f;
+import com.assignment.game.utils.Vector2i;
 
 /**
  * the Play state is the state where the game is update and render. The class
@@ -36,8 +37,8 @@ public class PlayState extends GameState {
         playerBlue = new Player("Blue", 1);
         playerRed = new Player("Red", 2);
 
-        playerBlue.addPiece(new Plus(1, new Vector2f(0, 0), "/bluePlus.png", playerBlue, ID.bluePlus1));
-        playerBlue.addPiece(new Plus(1, new Vector2f(2, 0), "/bluePlus.png", playerBlue, ID.bluePlus2));
+        playerBlue.addPiece(new Plus(1, new Vector2i(0, 0), "/bluePlus.png", playerBlue, ID.bluePlus1));
+        playerBlue.addPiece(new Plus(1, new Vector2i(2, 0), "/bluePlus.png", playerBlue, ID.bluePlus2));
     }
 
     /**
